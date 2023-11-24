@@ -216,62 +216,10 @@ app.put('/user', async (req, res) => {
                 are_you_an: formData.are_you_an,
                 url: formData.url,
                 about: formData.about,
-                matches: formData.matches
-            },
-        }
-
-        const insertedUser = await users.updateOne(query, updateDocument)
-
-        res.json(insertedUser)
-
-    } finally {
-        await client.close()
-    }
-})
-
-//update investor in database
-app.put('/investor', async (req, res) => {
-    const client = new MongoClient(uri)
-    const formData = req.body.formData
-
-    try {
-        await client.connect()
-        const database = client.db('app-data')
-        const users = database.collection('users')
-
-        const query = {user_id: formData.user_id}
-
-        const updateDocument = {
-            $set: {
+                matches: formData.matches,
                 net_worth: formData.net_worth,
                 goals: formData.goals,
-                risk_tolerance: formData.risk_tolerance
-            },
-        }
-
-        const insertedUser = await users.updateOne(query, updateDocument)
-
-        res.json(insertedUser)
-
-    } finally {
-        await client.close()
-    }
-})
-
-// Update advisor in the Database
-app.put('/advisor', async (req, res) => {
-    const client = new MongoClient(uri)
-    const formData = req.body.formData
-
-    try {
-        await client.connect()
-        const database = client.db('app-data')
-        const users = database.collection('users')
-
-        const query = {user_id: formData.user_id}
-
-        const updateDocument = {
-            $set: {
+                risk_tolerance: formData.risk_tolerance,
                 avg_portfolio_vol: formData.avg_portfolio_vol,
                 max_portfolio_vol: formData.max_portfolio_vol,
                 years_experience: formData.years_experience,
