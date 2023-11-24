@@ -229,6 +229,65 @@ app.put('/user', async (req, res) => {
     }
 })
 
+//update investor in database
+app.put('/investor', async (req, res) => {
+    const client = new MongoClient(uri)
+    const formData = req.body.formData
+
+    try {
+        await client.connect()
+        const database = client.db('app-data')
+        const users = database.collection('users')
+
+        const query = {user_id: formData.user_id}
+
+        const updateDocument = {
+            $set: {
+                net_worth: formData.net_worth,
+                goals: formData.goals,
+                risk_tolerance: formData.risk_tolerance
+            },
+        }
+
+        const insertedUser = await users.updateOne(query, updateDocument)
+
+        res.json(insertedUser)
+
+    } finally {
+        await client.close()
+    }
+})
+
+// Update advisor in the Database
+app.put('/advisor', async (req, res) => {
+    const client = new MongoClient(uri)
+    const formData = req.body.formData
+
+    try {
+        await client.connect()
+        const database = client.db('app-data')
+        const users = database.collection('users')
+
+        const query = {user_id: formData.user_id}
+
+        const updateDocument = {
+            $set: {
+                avg_portfolio_vol: formData.avg_portfolio_vol,
+                max_portfolio_vol: formData.max_portfolio_vol,
+                years_experience: formData.years_experience,
+                sebi_registered: formData.sebi_registered
+            },
+        }
+
+        const insertedUser = await users.updateOne(query, updateDocument)
+
+        res.json(insertedUser)
+
+    } finally {
+        await client.close()
+    }
+})
+
 // Get Messages by from_userId and to_userId
 app.get('/messages', async (req, res) => {
     const {userId, correspondingUserId} = req.query
