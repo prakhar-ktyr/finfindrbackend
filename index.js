@@ -246,7 +246,7 @@ app.put('/investor', async (req, res) => {
                 net_worth: formData.net_worth,
                 goals: formData.goals,
                 risk_tolerance: formData.risk_tolerance,
-                years_experience: formData.years_experience
+                pyears_experience: formData.pyears_experience
             },
         }
 
@@ -277,7 +277,7 @@ app.put('/advisor', async (req, res) => {
                 max_portfolio_vol: formData.max_portfolio_vol,
                 years_experience: formData.years_experience,
                 sebi_registered: formData.sebi_registered,
-                net_worth: formData.net_worth,
+                pnet_worth: formData.pnet_worth,
             },
         }
 
